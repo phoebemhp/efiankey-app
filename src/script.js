@@ -61,12 +61,16 @@ $(document).ready(function() {
   function displayUserMessage(sender, message) {
     const timestamp = getCurrentTimestamp();
     $('#chat-messages').append(`
-        <div class="sender-name text-end">${sender}</div>
-        <div class="message user-message">
+      <div class="row text-end">
+        <div class="col">
+          <div class="sender-name">${sender}</div>
+          <div class="message user-message">
             ${message}
             <div class="timestamp-user">${timestamp}</div>
-        </div>`
-    );
+          </div>
+        </div>
+      </div>
+    `);
     scrollToBottom();
   }
   
