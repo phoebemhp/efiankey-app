@@ -16,23 +16,41 @@ $(document).ready(function() {
   
   function sendMessage() {
     const userInput = $('#user-input').val();
-    if (userInput.trim() === '') return;
-  
-    displayUserMessage('You', userInput);
-  
-    // Simulating a response from the chatbot after a short delay
+  if (userInput.trim() === '') return;
+
+  displayUserMessage('You', userInput);
+
+  // Check if the user's input contains a question mark
+  if (userInput.includes('?') && userInput.includes('!')) {
     setTimeout(function() {
-      displayBotMessage('Chatbot Jamie', 'I am Jamie! How can I help you?'); // Simulated response
+      displayBotMessage('Jamie', 'Please give me some time to resolve the issue.');
     }, 500);
-  
-    $('#user-input').val('');
+  } else if (userInput.includes('?')) {
+    setTimeout(function() {
+      displayBotMessage('Jamie', 'Yes');
+    }, 500);
+  } else if (userInput.includes('!')) {
+    setTimeout(function() {
+      displayBotMessage('Jamie', 'Please remain calm.');
+    }, 500);
+  } else if (userInput.includes('Jamie')) {
+    setTimeout(function() {
+      displayBotMessage('Jamie', 'Can I help you?');
+    }, 500);
+  } else { // Default
+    setTimeout(function() {
+      displayBotMessage('Jamie', 'Sorry, I don’t understand.');
+    }, 500);
+  }
+
+  $('#user-input').val('');
   }
   
   function displayBotMessage(sender, message) {
     const timestamp = getCurrentTimestamp();
     $('#chat-messages').append(`
         <div class="sender-name fw-bold">${sender}</div>
-        <div class="message bot-message text-start">
+        <div class="message bot-message">
             ${message}
             <div class="timestamp-bot">${timestamp}</div>
         </div>`
@@ -44,7 +62,7 @@ $(document).ready(function() {
     const timestamp = getCurrentTimestamp();
     $('#chat-messages').append(`
         <div class="sender-name text-end">${sender}</div>
-        <div class="message user-message text-end">
+        <div class="message user-message">
             ${message}
             <div class="timestamp-user">${timestamp}</div>
         </div>`
